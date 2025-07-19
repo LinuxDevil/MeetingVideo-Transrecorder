@@ -103,24 +103,123 @@ sudo apt install pavucontrol
 sudo modprobe snd-aloop
 ```
 
-## Usage
+## Module Breakdown
 
-### Quick Start
+### 1. **Configuration (`src/config.py`)**
+- **AudioConfig**: Sample rates, channels, mixing ratios
+- **VideoConfig**: FPS, codec, file formats
+- **WhisperConfig**: Model settings, language options
+- **OllamaConfig**: AI model selection, connection settings
+- **PathsConfig**: Directory management with auto-creation
 
-1. **Test your setup:**
+### 2. **Utilities (`src/utils.py`)**
+- **RecordingType enum**: GoogleMeet, Lesson, Video types
+- **Logging setup**: Consistent logging across modules
+- **File utilities**: Sanitization, timestamps, file management
+- **Interactive functions**: User input handling
+
+### 3. **Audio Processing (`src/audio_processing.py`)**
+- **Dual audio recording**: System + microphone simultaneous capture
+- **Smart device detection**: Auto-finding audio devices
+- **Audio mixing**: Configurable balance between sources
+- **Threading**: Non-blocking concurrent recording
+
+### 4. **Video Processing (`src/video_processing.py`)**
+- **Screen recording**: Full screen or region-specific
+- **Configurable quality**: FPS and codec settings
+- **Interactive region selection**: User-friendly coordinate input
+- **Threaded recording**: Parallel with audio capture
+
+### 5. **Transcription (`src/transcription.py`)**
+- **Whisper integration**: Offline speech-to-text
+- **Configurable models**: Different accuracy/speed tradeoffs
+- **Error handling**: Robust file processing
+- **Multiple language support**: Configurable language detection
+
+### 6. **Summarization (`src/summarization.py`)**
+- **Ollama integration**: Local AI summarization
+- **Type-specific prompts**: Tailored for GoogleMeet, Lesson, Video
+- **Smart prompting**: Context-aware summary generation
+- **Fallback handling**: Robust error management
+
+### 7. **Session Management (`src/session_manager.py`)**
+- **Automatic organization**: Timestamped session directories
+- **File management**: Moving and organizing recordings
+- **Metadata tracking**: JSON-based session information
+- **Listing and discovery**: Easy session browsing
+
+## Usage Examples
+
+### **Basic Recording**
 ```bash
-python test_setup.py
+# Start interactive recording
+python dual_audio_bot_refactored.py
+
+# Process existing files
+python cli_tools.py auto --type Lesson --name "Python Tutorial"
+
+# List all sessions
+python cli_tools.py list
 ```
 
-2. **Run the enhanced dual audio bot:**
+### **Advanced Usage**
 ```bash
-python dual_audio_bot.py
+# Process specific files
+python cli_tools.py process audio.wav --video video.avi --type GoogleMeet
+
+# Delete old session
+python cli_tools.py delete "GoogleMeet_TeamSync_20250120_143000"
 ```
 
-3. **Process existing recordings (optional):**
+### **Testing Components**
 ```bash
-python process_recording.py
+# Test all refactored components
+python test_refactored.py
 ```
+
+## Configuration Customization
+
+### **Audio Settings**
+```python
+# In src/config.py, modify AudioConfig:
+sample_rate: int = 48000          # Higher quality
+system_audio_volume: float = 0.8  # More system audio
+microphone_volume: float = 0.2     # Less microphone
+```
+
+### **Video Settings**
+```python
+# Modify VideoConfig:
+fps: int = 30                     # Smoother video
+codec: str = "H264"               # Different codec
+```
+
+### **AI Settings**
+```python
+# Modify OllamaConfig:
+model: str = "llama2"             # Different AI model
+```
+
+## New Scripts and Tools
+
+### 🤖 **Main Bot (`dual_audio_bot_refactored.py`)**
+- **Interactive interface**: User-friendly menu system
+- **Multiple recording modes**: Full, region, or manual control
+- **Integrated processing**: Automatic transcription and summarization
+- **Session organization**: Structured file management
+
+### 🛠️ **CLI Tools (`cli_tools.py`)**
+- **`python cli_tools.py list`**: List all recording sessions
+- **`python cli_tools.py process <audio_file>`**: Process existing recordings
+- **`python cli_tools.py auto`**: Auto-process files in current directory
+- **`python cli_tools.py delete <session_name>`**: Remove sessions
+
+### 🧪 **Testing (`test_refactored.py`)**
+- **Module import validation**: Verify all components load
+- **Configuration testing**: Check settings and directories
+- **Device detection**: Test audio device discovery
+- **Connection testing**: Validate Ollama integration
+
 
 ### Recording Types
 
