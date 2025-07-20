@@ -16,7 +16,8 @@ An Python bot that records dual audio (system + microphone) with screen capture,
 
 ## Demo Video
 
-[![Demo Video](assets/result.mp4)](assets/result.mp4)
+https://github.com/user-attachments/assets/92bd4957-ea8f-4be9-9b55-4ac556f9a4db
+
 
 *Click to view a demonstration of the dual audio recording bot in action, showing screen recording, audio capture, transcription, and AI summarization.*
 
